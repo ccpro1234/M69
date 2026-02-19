@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Baccarat Predictor • Executive Edition</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700;900&display=swap');
+*{user-select:none}
+body{
+    font-family:'Kanit',sans-serif;
+    background:radial-gradient(circle at top,#0f172a,#020617 70%);
+    color:#f1f5f9;
+    overflow-x:hidden;
+}
+.custom-scrollbar::-webkit-scrollbar{height:8px;width:6px}
+.custom-scrollbar::-webkit-scrollbar-thumb{background:#334155;border-radius:10px}
+.glass-panel{
+    background:linear-gradient(180deg,rgba(15,23,42,.85),rgba(2,6,23,.9));
+    backdrop-filter:blur(14px);
+    border:1px solid rgba(148,163,184,.15);
+    box-shadow:0 25px 50px rgba(0,0,0,.7);
+}
+#login-screen{
+    position:fixed;
+    inset:0;
+    background:radial-gradient(circle at top,#020617,#000);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+}
+@keyframes blinkStrong{0%,100%{opacity:1}50%{opacity:.2}}
+.blink-strong{animation:blinkStrong .9s infinite;transform:scale(2)}
+
+/* ===== 3D BUTTON STYLE ===== */
+.btn-3d{
+    box-shadow:
+        0 6px 0 rgba(0,0,0,.45),
+        0 12px 25px rgba(0,0,0,.6);
+    transition:all .12s ease;
+}
+.btn-3d:active{
+    transform:translateY(4px);
+    box-shadow:
+        0 2px 0 rgba(0,0,0,.4),
+        0 6px 12px rgba(0,0,0,.5);
+}
+</style>
+</head>
+
+<body>
+
+<div id="login-screen">
+<div class="glass-panel p-8 rounded-3xl w-[320px] text-center">
+<h2 class="text-2xl font-black mb-6">SYSTEM LOGIN</h2>
+<input id="login-user" placeholder="User" class="w-full mb-3 px-4 py-3 rounded-xl bg-slate-900 border border-slate-600 text-center">
+<input id="login-pass" type="password" placeholder="Password" class="w-full mb-4 px-4 py-3 rounded-xl bg-slate-900 border border-slate-600 text-center">
+<button onclick="login()" class="w-full py-3 rounded-xl bg-slate-700 font-black btn-3d">LOGIN</button>
+<div id="login-error" class="text-red-500 text-sm mt-3 hidden">User หรือ Password ไม่ถูกต้อง</div>
+</div>
+</div>
+
+<div id="app" class="hidden p-4 md:p-8 max-w-7xl mx-auto">
+
+<div class="text-center mb-8">
+<h1 class="text-3xl md:text-2xl font-black">AI BACCARAT ANALYTICS เพิ่มเงื่อนไข Anti Double Cut </h1>
+<div class="mt-2 text-xs text-slate-400">วันหมดอายุ: 4 มีนาคม พ.ศ. 2569</div>
+</div>
+
+<div class="glass-panel p-6 rounded-3xl mb-6">
+<div class="flex flex-wrap justify-center gap-4">
+<button onclick="addManualData('P')" class="w-16 h-16 rounded-2xl bg-blue-700 text-2xl font-black btn-3d">P</button>
+<button onclick="addManualData('B')" class="w-16 h-16 rounded-2xl bg-red-700 text-2xl font-black btn-3d">B</button>
+<button onclick="addManualData('T')" class="w-16 h-16 rounded-2xl bg-green-700 text-2xl font-black btn-3d">T</button>
+
+<!-- UNDO BUTTON (ENGLISH + 3D) -->
+<button onclick="removeLastData()" class="w-20 h-16 rounded-2xl bg-slate-800 font-black btn-3d">
+UNDO
+</button>
+
+<button onclick="clearAll()" class="w-20 h-16 rounded-2xl bg-black border border-slate-500 font-black btn-3d">
+CLEAR
+</button>
+</div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+<div class="lg:col-span-8 space-y-6">
+<div class="glass-panel p-6 rounded-3xl text-center relative">
+<span id="dragon-tag" class="hidden absolute top-3 right-3 bg-red-700 text-[10px] px-3 py-1 rounded-full animate-pulse">DRAGON MODE</span>
+<div class="text-sm text-slate-400 mb-4">NEXT SIGNAL</div>
+<div class="w-28 h-28 mx-auto rounded-full flex items-center justify-center border-4 border-slate-700">
+<span id="predict-char" class="text-5xl font-black">?</span>
+</div>
+<div id="predict-label" class="mt-10 font-black text-xl">WAIT...</div>
+<div id="step-display" class="mt-2 text-xs font-bold">ไม้ 1</div>
+</div>
+
+<div class="glass-panel p-6 rounded-3xl overflow-x-auto custom-scrollbar">
+<div id="roadmap-grid" class="flex gap-2 min-w-max h-[150px]"></div>
+</div>
+</div>
+
+<div class="lg:col-span-4">
+<div class="bg-white rounded-3xl overflow-hidden h-[520px] flex flex-col">
+<div class="bg-slate-200 p-4 text-center font-black text-slate-800">ANALYSIS HISTORY</div>
+<div class="flex-grow overflow-y-auto custom-scrollbar">
+<table class="w-full text-xs text-slate-800">
+<tbody id="history-body"></tbody>
+</table>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<script>
+/* ===== EXPIRATION ===== */
+const EXP_DATE = new Date("2026-03-04T23:59:59");
+if (new Date() > EXP_DATE) {
+    document.body.innerHTML="<h1 style='color:red;text-align:center'>PROGRAM EXPIRED</h1>";
+    throw new Error("PROGRAM EXPIRED");
+}
+
+function login(){
+if(loginUser.value==="1234" && loginPass.value==="1234"){
+loginScreen.style.display="none"
+app.classList.remove("hidden")
+updatePredictUI()
+}else loginError.classList.remove("hidden")
+}
+
+let historyStr="",aiHistoryStr="",nextPredict="",isDragonMode=false
+let loseStep=0
+let cutCooldown=0
+let analysisRows=[]
+
+function generatePredict(){
+const l=historyStr.slice(-4)
+if(l==="PPPP"||l==="BBBB"){isDragonMode=true;return l[0]}
+isDragonMode=false
+return Math.random()<.5?'P':'B'
+}
+
+function addManualData(t){
+historyStr+=t
+aiHistoryStr+=nextPredict
+
+if(t!=='T'){
+if(t===nextPredict){
+analysisRows.push({a:t,r:'W',t:loseStep+1})
+loseStep=0
+}else{
+loseStep++
+if(loseStep>=4){
+if(cutCooldown===0){
+analysisRows.push({a:t,r:'L',t:4})
+cutCooldown=3
+}
+loseStep=0
+}else if(cutCooldown>0){
+cutCooldown--
+}
+}
+}
+
+nextPredict=generatePredict()
+updateUI()
+}
+
+function removeLastData(){
+historyStr=historyStr.slice(0,-1)
+aiHistoryStr=aiHistoryStr.slice(0,-1)
+analysisRows.pop()
+updateUI()
+}
+
+function clearAll(){
+historyStr=""
+aiHistoryStr=""
+analysisRows=[]
+loseStep=0
+cutCooldown=0
+nextPredict=generatePredict()
+roadmapGrid.innerHTML=""
+historyBody.innerHTML=""
+updateUI()
+}
+
+function renderBeadRoad(){
+roadmapGrid.innerHTML=""
+const cols=[]
+historyStr.split('').forEach((c,i)=>{
+const col=Math.floor(i/6)
+if(!cols[col]){
+cols[col]=document.createElement('div')
+cols[col].className="flex flex-col gap-1"
+roadmapGrid.appendChild(cols[col])
+}
+const d=document.createElement('div')
+d.className=`w-6 h-6 rounded-full text-[10px] flex items-center justify-center font-bold
+${c==='P'?'bg-blue-700':c==='B'?'bg-red-700':'bg-green-700'}`
+d.innerText=c
+cols[col].appendChild(d)
+})
+}
+
+function updatePredictUI(){
+predictChar.innerText=nextPredict
+predictLabel.innerText=nextPredict==="P"?"PLAYER":"BANKER"
+predictChar.className=`text-5xl font-black blink-strong ${nextPredict==="P"?"text-blue-400":"text-red-400"}`
+dragonTag.classList.toggle("hidden",!isDragonMode)
+}
+
+function updateUI(){
+renderBeadRoad()
+updatePredictUI()
+stepDisplay.innerText="ไม้ "+(loseStep+1)
+historyBody.innerHTML=[...analysisRows].reverse().map(x=>`
+<tr class="border-b text-center">
+<td class="p-2">${x.a}</td>
+<td class="p-2 ${x.r==='W'?'text-slate-700':'text-red-600'}">${x.r}</td>
+<td class="p-2">ไม้ ${x.t}</td>
+</tr>
+`).join("")
+}
+
+const loginScreen=document.getElementById('login-screen')
+const loginUser=document.getElementById('login-user')
+const loginPass=document.getElementById('login-pass')
+const loginError=document.getElementById('login-error')
+const app=document.getElementById('app')
+const dragonTag=document.getElementById('dragon-tag')
+const roadmapGrid=document.getElementById('roadmap-grid')
+const historyBody=document.getElementById('history-body')
+const predictChar=document.getElementById('predict-char')
+const predictLabel=document.getElementById('predict-label')
+const stepDisplay=document.getElementById('step-display')
+
+nextPredict=generatePredict()
+updatePredictUI()
+lucide.createIcons()
+</script>
+
+</body>
+</html>
