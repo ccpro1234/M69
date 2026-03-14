@@ -2,120 +2,207 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Baccarat Predictor • Executive Edition</title>
-
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://unpkg.com/lucide@latest"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1">
+<title>Genius formula Version Excluesive</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700;900&display=swap');
-*{user-select:none}
+:root{
+--bg:#020617;--card:#0f172a;--card2:#020617;
+--border:rgba(255,255,255,.12);
+--text:#f8fafc;--muted:#94a3b8;
+--player:#3b82f6;--banker:#ef4444;--tie:#22c55e;
+--gold1:#fde68a;--gold2:#eab308;
+--shadow:0 30px 70px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
 body{
-    font-family:'Kanit',sans-serif;
-    background:radial-gradient(circle at top,#0f172a,#020617 70%);
-    color:#f1f5f9;
-    overflow-x:hidden;
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+background:#020617;
+color:var(--text);
+user-select:none;
 }
-.custom-scrollbar::-webkit-scrollbar{height:8px;width:6px}
-.custom-scrollbar::-webkit-scrollbar-thumb{background:#334155;border-radius:10px}
-.glass-panel{
-    background:linear-gradient(180deg,rgba(15,23,42,.85),rgba(2,6,23,.9));
-    backdrop-filter:blur(14px);
-    border:1px solid rgba(148,163,184,.15);
-    box-shadow:0 25px 50px rgba(0,0,0,.7);
+.hidden{display:none}
+.page{padding:24px;max-width:620px;margin:auto}
+.card{
+background:linear-gradient(180deg,rgba(15,23,42,.96),rgba(2,6,23,.96));
+border-radius:22px;padding:20px;margin-bottom:20px;
+border:1px solid var(--border);
+box-shadow:var(--shadow);
 }
-#login-screen{
-    position:fixed;
-    inset:0;
-    background:radial-gradient(circle at top,#020617,#000);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    z-index:9999;
-}
-@keyframes blinkStrong{0%,100%{opacity:1}50%{opacity:.2}}
-.blink-strong{animation:blinkStrong .9s infinite;transform:scale(2)}
+h1{text-align:center;font-weight:900}
+h2{font-size:.8rem;color:var(--muted);border-bottom:1px solid var(--border);padding-bottom:6px}
 
-/* ===== 3D BUTTON STYLE ===== */
-.btn-3d{
-    box-shadow:
-        0 6px 0 rgba(0,0,0,.45),
-        0 12px 25px rgba(0,0,0,.6);
-    transition:all .12s ease;
+/* LOGIN */
+.login-box{
+max-width:360px;margin:130px auto;
+background:linear-gradient(180deg,#020617,#0f172a);
+border-radius:28px;padding:26px;
+border:1px solid var(--border);
+box-shadow:0 40px 80px rgba(0,0,0,.8);
 }
-.btn-3d:active{
-    transform:translateY(4px);
-    box-shadow:
-        0 2px 0 rgba(0,0,0,.4),
-        0 6px 12px rgba(0,0,0,.5);
+.login-box h1{color:var(--gold1)}
+.login-box input{
+width:100%;padding:12px;margin-bottom:12px;
+border-radius:14px;border:1px solid var(--border);
+background:#020617;color:var(--text);
+}
+.login-box button{
+width:100%;padding:12px;border:none;
+border-radius:16px;font-weight:900;
+background:linear-gradient(135deg,var(--gold1),var(--gold2));
+cursor:pointer;
+}
+
+/* EXPIRED */
+.expired{
+max-width:420px;margin:160px auto;
+background:#020617;
+border:1px solid #7f1d1d;
+color:#fecaca;
+padding:26px;
+border-radius:22px;
+text-align:center;
+box-shadow:0 40px 80px rgba(0,0,0,.9);
+}
+.expired h1{color:#ef4444}
+.expired small{color:#94a3b8}
+
+/* UI */
+.counter{display:flex;gap:8px;font-weight:bold}
+.counter span{
+flex:1;background:rgba(255,255,255,.05);
+border:1px solid var(--border);
+padding:10px;border-radius:16px;text-align:center
+}
+.bead-road-container{
+overflow-x:auto;background:#020617;
+border-radius:16px;padding:14px;
+border:1px solid var(--border)
+}
+.bead-road-grid{
+display:grid;
+grid-template-rows:repeat(6,30px);
+grid-auto-flow:column;
+grid-auto-columns:30px;
+gap:4px;width:max-content
+}
+.bead-cell{
+width:30px;height:30px;
+display:flex;align-items:center;justify-content:center
+}
+.bead{
+width:24px;height:24px;border-radius:50%;
+display:flex;align-items:center;justify-content:center;
+font-size:10px;font-weight:900;color:#fff
+}
+.bead.p{background:#2563eb}
+.bead.b{background:#dc2626}
+.bead.t{background:#16a34a}
+
+.controls{display:flex;gap:14px;margin-bottom:14px}
+.btn{
+flex:1;border:none;border-radius:20px;
+padding:16px;font-size:1.15rem;
+font-weight:900;color:#fff
+}
+.btn-p{background:#2563eb}
+.btn-b{background:#dc2626}
+.btn-t{background:#16a34a}
+.btn-u{background:#475569}
+.btn-c{background:#7f1d1d}
+
+.strategy-item{
+border-bottom:1px dashed var(--border);
+padding:12px 0
+}
+.strategy-item.best{
+border-left:4px solid var(--gold1);
+padding-left:14px;
+background:rgba(234,179,8,.08);
+border-radius:16px
+}
+.win-pct{
+font-size:1.35rem;
+font-weight:900;color:var(--gold1)
+}
+.advice{
+padding:5px 14px;border-radius:999px;
+font-weight:900;color:#fff
+}
+.advice-p{background:var(--player)}
+.advice-b{background:var(--banker)}
+.main-advice{
+font-size:3rem;color:var(--gold1);
+font-weight:900;text-align:center
+}
+.exp-date{
+text-align:center;
+font-size:.75rem;
+color:#94a3b8;
+margin-top:6px
 }
 </style>
 </head>
 
 <body>
 
-<div id="login-screen">
-<div class="glass-panel p-8 rounded-3xl w-[320px] text-center">
-<h2 class="text-2xl font-black mb-6">SYSTEM LOGIN</h2>
-<input id="login-user" placeholder="User" class="w-full mb-3 px-4 py-3 rounded-xl bg-slate-900 border border-slate-600 text-center">
-<input id="login-pass" type="password" placeholder="Password" class="w-full mb-4 px-4 py-3 rounded-xl bg-slate-900 border border-slate-600 text-center">
-<button onclick="login()" class="w-full py-3 rounded-xl bg-slate-700 font-black btn-3d">LOGIN</button>
-<div id="login-error" class="text-red-500 text-sm mt-3 hidden">User หรือ Password ไม่ถูกต้อง</div>
+<div id="expiredBox" class="expired hidden">
+<h1>โปรแกรมหมดอายุ</h1>
+<p>วันหมดอายุ: 25 มีนาคม พ.ศ. 2569</p>
+<small>กรุณาติดต่อผู้พัฒนา</small>
+</div>
+
+<div id="loginBox" class="login-box">
+<h1>Login</h1>
+<input id="user" placeholder="User">
+<input id="pass" type="password" placeholder="Password">
+<button type="button" onclick="doLogin()">เข้าสู่ระบบ</button>
+<div id="msg" style="text-align:center;color:#ef4444;margin-top:8px"></div>
+</div>
+
+<div id="app" class="hidden">
+<div class="page">
+
+<h1>Genius formula Version Excluesive</h1>
+<div class="exp-date">หมดอายุวันที่ 25 มีนาคม พ.ศ. 2569</div>
+
+<div class="card counter">
+<span style="color:#3b82f6">P: <b id="cntP">0</b></span>
+<span style="color:#ef4444">B: <b id="cntB">0</b></span>
+<span style="color:#22c55e">T: <b id="cntT">0</b></span>
+<span>TOTAL: <b id="cntAll">0</b></span>
+</div>
+
+<div class="card">
+<h2>Bead Road</h2>
+<div class="bead-road-container">
+<div id="bead-road-grid" class="bead-road-grid"></div>
 </div>
 </div>
 
-<div id="app" class="hidden p-4 md:p-8 max-w-7xl mx-auto">
-
-<div class="text-center mb-8">
-<h1 class="text-3xl md:text-2xl font-black">AI BACCARAT ANALYTICS เพิ่มเงื่อนไข Anti Double Cut </h1>
-<div class="mt-2 text-xs text-slate-400">วันหมดอายุ: 4 มีนาคม พ.ศ. 2569</div>
+<div class="card">
+<h2>บันทึกผล</h2>
+<div class="controls">
+<button class="btn btn-p" onclick="addResult('P')">P</button>
+<button class="btn btn-b" onclick="addResult('B')">B</button>
+<button class="btn btn-t" onclick="addResult('T')">T</button>
 </div>
-
-<div class="glass-panel p-6 rounded-3xl mb-6">
-<div class="flex flex-wrap justify-center gap-4">
-<button onclick="addManualData('P')" class="w-16 h-16 rounded-2xl bg-blue-700 text-2xl font-black btn-3d">P</button>
-<button onclick="addManualData('B')" class="w-16 h-16 rounded-2xl bg-red-700 text-2xl font-black btn-3d">B</button>
-<button onclick="addManualData('T')" class="w-16 h-16 rounded-2xl bg-green-700 text-2xl font-black btn-3d">T</button>
-
-<!-- UNDO BUTTON (ENGLISH + 3D) -->
-<button onclick="removeLastData()" class="w-20 h-16 rounded-2xl bg-slate-800 font-black btn-3d">
-UNDO
-</button>
-
-<button onclick="clearAll()" class="w-20 h-16 rounded-2xl bg-black border border-slate-500 font-black btn-3d">
-CLEAR
-</button>
+<div class="controls">
+<button class="btn btn-u" onclick="undo()">Undo</button>
+<button class="btn btn-c" onclick="clearAll()">Clear</button>
 </div>
 </div>
 
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-
-<div class="lg:col-span-8 space-y-6">
-<div class="glass-panel p-6 rounded-3xl text-center relative">
-<span id="dragon-tag" class="hidden absolute top-3 right-3 bg-red-700 text-[10px] px-3 py-1 rounded-full animate-pulse">DRAGON MODE</span>
-<div class="text-sm text-slate-400 mb-4">NEXT SIGNAL</div>
-<div class="w-28 h-28 mx-auto rounded-full flex items-center justify-center border-4 border-slate-700">
-<span id="predict-char" class="text-5xl font-black">?</span>
-</div>
-<div id="predict-label" class="mt-10 font-black text-xl">WAIT...</div>
-<div id="step-display" class="mt-2 text-xs font-bold">ไม้ 1</div>
+<div class="card">
+<h2>สูตรแนะนำ</h2>
+<div id="best-name" style="text-align:center;color:#94a3b8">รอข้อมูล...</div>
+<div id="best-pct" class="main-advice">0%</div>
 </div>
 
-<div class="glass-panel p-6 rounded-3xl overflow-x-auto custom-scrollbar">
-<div id="roadmap-grid" class="flex gap-2 min-w-max h-[150px]"></div>
-</div>
-</div>
-
-<div class="lg:col-span-4">
-<div class="bg-white rounded-3xl overflow-hidden h-[520px] flex flex-col">
-<div class="bg-slate-200 p-4 text-center font-black text-slate-800">ANALYSIS HISTORY</div>
-<div class="flex-grow overflow-y-auto custom-scrollbar">
-<table class="w-full text-xs text-slate-800">
-<tbody id="history-body"></tbody>
-</table>
-</div>
-</div>
+<div class="card">
+<h2>กลยุทธ์ & DNA (11 สาย)</h2>
+<div id="strategy-list"></div>
 </div>
 
 </div>
@@ -123,130 +210,184 @@ CLEAR
 
 <script>
 /* ===== EXPIRATION ===== */
-const EXP_DATE = new Date("2026-03-04T23:59:59");
-if (new Date() > EXP_DATE) {
-    document.body.innerHTML="<h1 style='color:red;text-align:center'>PROGRAM EXPIRED</h1>";
-    throw new Error("PROGRAM EXPIRED");
+const EXP_DATE=new Date('2026-03-25T00:00:00');
+const now=new Date();
+
+const expiredBox=document.getElementById('expiredBox');
+const loginBox=document.getElementById('loginBox');
+const app=document.getElementById('app');
+
+if(now>=EXP_DATE){
+ loginBox.classList.add('hidden');
+ app.classList.add('hidden');
+ expiredBox.classList.remove('hidden');
 }
 
-function login(){
-if(loginUser.value==="1234" && loginPass.value==="1234"){
-loginScreen.style.display="none"
-app.classList.remove("hidden")
-updatePredictUI()
-}else loginError.classList.remove("hidden")
+/* ===== LOGIN ===== */
+const msg=document.getElementById('msg');
+const userInput=document.getElementById('user');
+const passInput=document.getElementById('pass');
+
+function doLogin(){
+ if(new Date()>=EXP_DATE){
+  loginBox.classList.add('hidden');
+  expiredBox.classList.remove('hidden');
+  return;
+ }
+ if(userInput.value==='1234'&&passInput.value==='1234'){
+  loginBox.classList.add('hidden');
+  app.classList.remove('hidden');
+ }else msg.innerText='รหัสไม่ถูกต้อง';
 }
 
-let historyStr="",aiHistoryStr="",nextPredict="",isDragonMode=false
-let loseStep=0
-let cutCooldown=0
-let analysisRows=[]
+/* ===== LOGIC เดิมทั้งหมด (ไม่แก้) ===== */
+let results=[];
 
-function generatePredict(){
-const l=historyStr.slice(-4)
-if(l==="PPPP"||l==="BBBB"){isDragonMode=true;return l[0]}
-isDragonMode=false
-return Math.random()<.5?'P':'B'
-}
+/* ===== STRATEGIES BASE ===== */
+const strategies=[
+ {name:"Follow (ตามเค้า)",logic:h=>h[h.length-1]||'NA'},
+ {name:"Cut (ตัดเค้า)",logic:h=>h[h.length-1]==='P'?'B':h[h.length-1]==='B'?'P':'NA'},
+ {name:"Mirror-4 (ย้อนหลัง 4)",logic:h=>h.length>=4?h[h.length-4]:'NA'},
+ {name:"Majority (เค้ามาก)",logic:h=>{
+  let p=h.filter(x=>x==='P').length;
+  let b=h.filter(x=>x==='B').length;
+  return p>b?'P':b>p?'B':'NA';
+ }},
+ {name:"Last-2 Majority (สีมาก 2 ตาล่าสุด)",logic:h=>{
+  if(h.length<2)return'NA';
+  return h[h.length-1]===h[h.length-2]?h[h.length-1]:'NA';
+ }}
+];
 
-function addManualData(t){
-historyStr+=t
-aiHistoryStr+=nextPredict
+strategies.push(
+ {name:"Fake Break Counter (หลอกแล้วสวนเร็ว)",logic:h=>{
+  if(h.length<2)return'NA';
+  let a=h[h.length-2],b=h[h.length-1];
+  if(a===b)return'NA';
+  return b==='P'?'B':'P';
+ }},
+ {name:"Acceleration Trap (กับดักความเร็ว)",logic:h=>{
+  let f=h.filter(x=>x==='P'||x==='B');
+  if(f.length<3)return'NA';
+  let a=f[f.length-3],b=f[f.length-2],c=f[f.length-1];
+  if(a===c&&a!==b)return c==='P'?'B':'P';
+  return'NA';
+ }},
+ {name:"Early Majority Snap (เสียงข้างมากเร็ว)",logic:h=>{
+  if(h.length<3)return'NA';
+  let l=h.slice(-3),
+      p=l.filter(x=>x==='P').length,
+      b=l.filter(x=>x==='B').length;
+  if(p===2)return'P';
+  if(b===2)return'B';
+  return'NA';
+ }},
+ {name:"Pressure Pullback (ดึงกลับจากแรงกด)",logic:h=>{
+  let f=h.filter(x=>x==='P'||x==='B');
+  if(f.length<3)return'NA';
+  let a=f[f.length-3],
+      b=f[f.length-2],
+      c=f[f.length-1];
+  if(a===b && b!==c)return c==='P'?'B':'P';
+  return'NA';
+ }}
+);
 
-if(t!=='T'){
-if(t===nextPredict){
-analysisRows.push({a:t,r:'W',t:loseStep+1})
-loseStep=0
-}else{
-loseStep++
-if(loseStep>=4){
-if(cutCooldown===0){
-analysisRows.push({a:t,r:'L',t:4})
-cutCooldown=3
-}
-loseStep=0
-}else if(cutCooldown>0){
-cutCooldown--
-}
-}
-}
+strategies.push(
+ {
+  name:"Balance Drift Lock (ดักสมดุลทุกตา)",
+  logic:h=>{
+    let f=h.filter(x=>x==='P'||x==='B');
+    if(f.length===0) return 'P';
 
-nextPredict=generatePredict()
-updateUI()
-}
+    let w=f.slice(-5);
+    let score=0;
 
-function removeLastData(){
-historyStr=historyStr.slice(0,-1)
-aiHistoryStr=aiHistoryStr.slice(0,-1)
-analysisRows.pop()
-updateUI()
-}
+    w.forEach(x=>{
+      if(x==='P') score+=1;
+      else if(x==='B') score-=1;
+    });
 
-function clearAll(){
-historyStr=""
-aiHistoryStr=""
-analysisRows=[]
-loseStep=0
-cutCooldown=0
-nextPredict=generatePredict()
-roadmapGrid.innerHTML=""
-historyBody.innerHTML=""
-updateUI()
-}
+    if(score>0) return 'B';
+    if(score<0) return 'P';
 
-function renderBeadRoad(){
-roadmapGrid.innerHTML=""
-const cols=[]
-historyStr.split('').forEach((c,i)=>{
-const col=Math.floor(i/6)
-if(!cols[col]){
-cols[col]=document.createElement('div')
-cols[col].className="flex flex-col gap-1"
-roadmapGrid.appendChild(cols[col])
-}
-const d=document.createElement('div')
-d.className=`w-6 h-6 rounded-full text-[10px] flex items-center justify-center font-bold
-${c==='P'?'bg-blue-700':c==='B'?'bg-red-700':'bg-green-700'}`
-d.innerText=c
-cols[col].appendChild(d)
-})
-}
+    let last=w[w.length-1];
+    return last==='P'?'B':'P';
+  }
+ }
+);
+strategies.push({
+  name:"Swing Depth Reversal (สวนเมื่อสวิงลึก)",
+  logic:h=>{
+    let f=h.filter(x=>x==='P'||x==='B');
+    if(f.length===0) return 'P';
 
-function updatePredictUI(){
-predictChar.innerText=nextPredict
-predictLabel.innerText=nextPredict==="P"?"PLAYER":"BANKER"
-predictChar.className=`text-5xl font-black blink-strong ${nextPredict==="P"?"text-blue-400":"text-red-400"}`
-dragonTag.classList.toggle("hidden",!isDragonMode)
+    let last6=f.slice(-6);
+    let score=0;
+
+    last6.forEach(x=>{
+      if(x==='P') score+=1;
+      if(x==='B') score-=1;
+    });
+
+    // ถ้าเอียงแรงเกิน 3 แต้ม → สวน
+    if(score>=3) return 'B';
+    if(score<=-3) return 'P';
+
+    // ถ้าไม่เอียงแรง → ตามแรงล่าสุด
+    let last=f[f.length-1];
+    return last==='P'?'P':'B';
+  }
+});
+
+
+/* ===== FUNCTIONS ===== */
+function addResult(v){results.push(v);updateUI();}
+function undo(){results.pop();updateUI();}
+function clearAll(){if(confirm("ล้างข้อมูลทั้งหมด?")){results=[];updateUI();}}
+
+function calc(s){
+ let win=0,tot=0,hist=[];
+ for(let i=0;i<results.length;i++){
+  if(results[i]==='T')continue;
+  let sub=results.slice(0,i).filter(x=>x!=='T');
+  let p=s.logic(sub);
+  if(p!=='NA'){
+   tot++;hist.push(p===results[i]?'✅':'❌');
+   if(p===results[i])win++;
+  }
+ }
+ return{pct:tot?Math.round(win/tot*100):0,dna:hist.slice(-20),next:s.logic(results.filter(x=>x!=='T'))};
 }
 
 function updateUI(){
-renderBeadRoad()
-updatePredictUI()
-stepDisplay.innerText="ไม้ "+(loseStep+1)
-historyBody.innerHTML=[...analysisRows].reverse().map(x=>`
-<tr class="border-b text-center">
-<td class="p-2">${x.a}</td>
-<td class="p-2 ${x.r==='W'?'text-slate-700':'text-red-600'}">${x.r}</td>
-<td class="p-2">ไม้ ${x.t}</td>
-</tr>
-`).join("")
+ document.getElementById('bead-road-grid').innerHTML=
+ results.map(r=>`<div class="bead-cell"><div class="bead ${r.toLowerCase()}">${r}</div></div>`).join('');
+ cntP.innerText=results.filter(x=>x==='P').length;
+ cntB.innerText=results.filter(x=>x==='B').length;
+ cntT.innerText=results.filter(x=>x==='T').length;
+ cntAll.innerText=results.length;
+
+ let all=strategies.map(s=>({name:s.name,data:calc(s)}))
+ .sort((a,b)=>b.data.pct-a.data.pct);
+
+ document.getElementById('strategy-list').innerHTML=
+ all.map((x,i)=>`
+ <div class="strategy-item ${i===0&&x.data.pct>0?'best':''}">
+  <div style="display:flex;justify-content:space-between">
+   <b>${x.name}</b>
+   <div>
+    <span class="win-pct">${x.data.pct}%</span>
+    <span class="advice advice-${x.data.next.toLowerCase()}">${x.data.next}</span>
+   </div>
+  </div>
+  <div>${x.data.dna.join(' ')}</div>
+ </div>`).join('');
+
+ document.getElementById('best-name').innerText=
+ all[0].data.pct>0?`แนะนำ: ${all[0].name}`:'รอผลถัดไป';
+ document.getElementById('best-pct').innerText=all[0].data.pct+'%';
 }
-
-const loginScreen=document.getElementById('login-screen')
-const loginUser=document.getElementById('login-user')
-const loginPass=document.getElementById('login-pass')
-const loginError=document.getElementById('login-error')
-const app=document.getElementById('app')
-const dragonTag=document.getElementById('dragon-tag')
-const roadmapGrid=document.getElementById('roadmap-grid')
-const historyBody=document.getElementById('history-body')
-const predictChar=document.getElementById('predict-char')
-const predictLabel=document.getElementById('predict-label')
-const stepDisplay=document.getElementById('step-display')
-
-nextPredict=generatePredict()
-updatePredictUI()
-lucide.createIcons()
 </script>
 
 </body>
